@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sumra Tariq — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0f1a;
+      --surface:   #111827;
+      --card:      #1a2236;
+      --border:    #1f2d45;
+      --accent:    #38bdf8;
+      --accent2:   #818cf8;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --highlight: #0ea5e9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(129,140,248,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1.05;
+      color: #fff;
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 48px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0f1a;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 48px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      margin-bottom: 48px;
+      line-height: 1.15;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 20px; font-size: 1.05rem; }
+    .about-text strong { color: var(--text); }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); border-radius: 24px; max-width: 100%; padding: 80px 0; }
+    #skills > * { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .skill-name { font-weight: 600; font-size: 1rem; color: var(--text); margin-bottom: 8px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .tag {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 999px;
+      background: rgba(56,189,248,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.2);
+    }
+    .tag.purple {
+      background: rgba(129,140,248,0.1);
+      color: var(--accent2);
+      border-color: rgba(129,140,248,0.2);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-num {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .project-title { font-weight: 700; font-size: 1.15rem; color: #fff; margin-bottom: 12px; }
+    .project-desc { color: var(--muted); font-size: 0.95rem; flex: 1; margin-bottom: 24px; }
+    .project-link {
+      color: var(--accent); font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 64px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.07), transparent 60%);
+      pointer-events: none;
+    }
+    .contact-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #fff; margin-bottom: 16px;
+    }
+    .contact-box p { color: var(--muted); max-width: 440px; margin: 0 auto 36px; }
+    .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--text); text-decoration: none; font-size: 0.9rem;
+      border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 0.8rem;
+    }
+    footer span { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      .hero, section { padding-left: 24px; padding-right: 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-box { padding: 40px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">ST.</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Available for Opportunities</div>
+    <h1>Sumra Tariq —<br><em>Engineer &amp; Builder</em></h1>
+    <p class="hero-sub">
+      BS Computer Engineering student specializing in cloud computing, Agentic AI, RAG applications, and AI-driven systems. Passionate about building scalable software, intelligent automation, and data-centric solutions that solve real-world problems.
+
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Where innovation meets<br>software engineering.</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+        I'm a <strong>Computer Engineering student</strong> driven by a passion for software engineering and emerging technologies. I specialize in developing scalable web applications, exploring AI-powered solutions, working with cloud infrastructure, and building reliable systems. I believe great engineering combines technical excellence with creativity to solve meaningful problems and deliver impactful digital experiences.
+        </p>
+        <p>
+          Currently completing industrial training with a focus on <strong>cloud computing
+          (AWS / Azure)</strong>, diagnostic instrumentation, and network engineering —
+          turning coursework into real deployable solutions.
+        </p>
+        <p>
+          I believe the best engineers are the ones who can move between the physical world
+          and the digital one — and build bridges between them.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years of Engineering Study</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Live Cloud Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">AWS</div>
+          <div class="stat-label">S3 Static Hosting ✓</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Hands-on Training</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div id="skills">
+    <div style="padding:0 48px 48px;">
+      <p class="section-label">What I Work With</p>
+      <h2 class="section-title">Skills &amp; Tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Cloud Computing</div>
+        <p style="color:var(--muted);font-size:0.88rem;">Deploying scalable infrastructure using managed cloud services.</p>
+        <div class="skill-tags">
+          <span class="tag">AWS S3</span>
+          <span class="tag">Azure Blob</span>
+          <span class="tag">IaaS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Computer Networks</div>
+        <p style="color:var(--muted);font-size:0.88rem;">IP subnetting, routing protocols, SDN, and network layer design.</p>
+        <div class="skill-tags">
+          <span class="tag purple">OSPF</span>
+          <span class="tag purple">BGP</span>
+          <span class="tag purple">Cisco IOS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">Artificial Intelligence</div>
+        <p style="color:var(--muted);font-size:0.88rem;">Building AI-powered applications using LLMs, RAG pipelines, and autonomous agents.</p>
+        <div class="skill-tags">
+          <span class="tag">LLMs</span>
+          <span class="tag">RAG</span>
+          <span class="tag">AI Agents</span>
+        </div>
+      </div>
+      <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">Software Engineering</div>
+      <p style="color:var(--muted);font-size:0.88rem;">Building scalable applications, APIs, and database-driven systems with a focus on performance and reliability.</p>
+      <div class="skill-tags">
+        <span class="tag purple">C#</span>
+        <span class="tag purple">MySQL</span>
+        <span class="tag purple">System Design</span>
+      </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-name">Programming</div>
+        <p style="color:var(--muted);font-size:0.88rem;">Scripting, data processing, and automation workflows.</p>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">Bash</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛡️</div>
+        <div class="skill-name">Cloud Security</div>
+        <p style="color:var(--muted);font-size:0.88rem;">IAM roles, bucket policies, least-privilege access control.</p>
+        <div class="skill-tags">
+          <span class="tag purple">IAM</span>
+          <span class="tag purple">RBAC</span>
+          <span class="tag purple">BPA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">What I've Built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">Project 01 — Cloud Computing</div>
+        <div class="project-title">The Global Launch — Static Portfolio Hosting</div>
+        <p class="project-desc">
+          Deployed this portfolio as a serverless static website using AWS S3 / Azure Blob Storage.
+          Configured public bucket policies, enabled static website hosting, and achieved
+          global low-latency access with zero server management.
+        </p>
+        <div class="skill-tags" style="margin-bottom:20px;">
+          <span class="tag">AWS S3</span><span class="tag">Azure Blob</span><span class="tag">IaaS</span>
+        </div>
+        <!-- <a class="project-link" href="#">Live Site ↗</a> -->
+      </div>
+      <div class="project-card">
+        <div class="project-num">Project 02 — Networking</div>
+        <div class="project-title">IP Subnetting — Cisco Packet Tracer Lab</div>
+        <p class="project-desc">
+          Designed and implemented subnetting of 198.198.98.0/24 into 8 subnets (/27 mask,
+          30 usable hosts each). Configured two routers with static routing via Cisco IOS CLI
+          and verified full end-to-end connectivity.
+        </p>
+        <div class="skill-tags" style="margin-bottom:20px;">
+          <span class="tag purple">Cisco IOS</span><span class="tag purple">IPv4</span><span class="tag purple">Static Routing</span>
+        </div>
+        <!-- <a class="project-link" href="#">View Report ↗</a> -->
+      </div>
+      <div class="project-card">
+      <div class="project-num">Project 03 — Artificial Intelligence</div>
+      <div class="project-title">Anxitalk — AI-Based Mental Health Support System</div>
+      <p class="project-desc">Developed an AI conversational assistant for mental health support using Llama LLM,
+        enabling mood-aware interactions and personalized user engagement. Integrated AI-driven
+        features including breathing exercises, humor, and music recommendations while focusing
+        on ethical AI design and responsible user support.</p>
+      <div class="skill-tags" style="margin-bottom:20px;">
+        <span class="tag">Llama LLM</span><span class="tag">AI Assistant</span><span class="tag">Ethical AI</span>
+      </div>
+      <!-- <a class="project-link" href="#">View Report ↗</a> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Let's build something together.</h2>
+      <p>Open to internships, research collaborations, and cloud engineering opportunities.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:engrsumratariq@gmail.com">
+          ✉ engrsumratariq@gmail.com
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/sumra-tariq-47b98420a" target="_blank">
+          🔗 LinkedIn
+        </a>
+        <a class="contact-link" href="https://github.com/sumratariq" target="_blank">
+          ⌨ GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2026 <span>Sumra Tariq</span>. Hosted on AWS S3 / Azure Blob.</div>
+    <div>Built with HTML &amp; CSS — no frameworks, no servers.</div>
+  </footer>
+
+</body>
+</html>
